@@ -3,6 +3,7 @@ Task 1 create a new procedure called AddBooking to add a new table booking recor
 The procedure should include four input parameters in the form of the following bookings parameters:
 booking id, customer id, booking date,and table number.
 */
+USE little_lemon_db;
 
 DELIMITER //
 
@@ -13,7 +14,7 @@ CREATE PROCEDURE AddBooking(
     IN inputtable_number INT
 )
 BEGIN
-    INSERT INTO bookings (booking_id, customer_id, booking_date, table_number)
+    INSERT INTO little_lemon_db.bookings (booking_id, customer_id, booking_date, table_number)
     VALUES (inputbooking_id, inputcustomer_id, inputbooking_date, inputtable_number);
     
     SELECT 'New booking added.' AS Message;
@@ -21,7 +22,7 @@ END //
 
 DELIMITER ;
 
-CALL AddBooking(9, 3, 4, '2022-12-30');
+CALL AddBooking(9, 3, '2022-12-30', 4);
 
 /*
 Task 2  Little Lemon need you to create a new procedure called UpdateBooking that they can use to update existing bookings in the booking table.
