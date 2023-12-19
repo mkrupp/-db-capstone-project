@@ -2,30 +2,34 @@
 Task 1 
 Little Lemon wants to populate the Bookings table of their database with some records of data. Your first task is to replicate the list of records in the following table by adding them to the Little Lemon booking table. 
 */
-INSERT INTO Bookings (booking_id, booking_date, table_number, customer_id)
+INSERT INTO little_lemon_db.bookings(booking_id, booking_date, table_number, customer_id)
 VALUES 
 (1, '2022-10-10', 5, 1),
 (2, '2022-11-12', 3, 3),
 (3, '2022-10-11', 2, 2),
 (4, '2022-10-13', 2, 1);
 
+SELECT * FROM little_lemon_db.bookings;
+
 /*
 Task 2 Little Lemon need you to create a stored procedure called CheckBooking to check whether a table in the restaurant is already booked. Creating this procedure helps to minimize the effort involved in repeatedly coding the same SQL statements.
 The procedure should have two input parameters in the form of booking date and table number. You can also create a variable in the procedure to check the status of each table.
 */
 
+USE little_lemon_db;
+
 DELIMITER //
 
-CREATE PROCEDURE CheckBooking(IN inputbooking_date DATE, IN inputtable_number INT)
+CREATE PROCEDURE CheckBooking(IN booking_date DATE, IN table_number INT)
 BEGIN
-    DECLARE BookedTable VARCHAR(255);
+    DECLARE BookedTable INT;
   
     SELECT 
         CASE 
             WHEN COUNT(*) > 0 THEN 'Table is already booked.'
             ELSE 'Table is available for booking.'
         END INTO BookedTable
-    FROM bookings
+    FROM little_lemon_db.bookings
     WHERE booking_date = inputbooking_date AND table_number = inputtable_number;
 
        SELECT BookedTable AS Status;
@@ -60,5 +64,3 @@ BEGIN
 END //
 
 DELIMITER ;
-
-
